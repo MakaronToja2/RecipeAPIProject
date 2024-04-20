@@ -373,6 +373,44 @@ class PrivateRecipeAPITest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(recipe.ingredients.count(), 0)
 
+    def test_filter_by_tags(self):
+        """Test filtering recipies by tags"""
+        r1 = create_recipe(user=self.user, title='vegan curry')
+        r2 = create_recipe(user=self.user, title='Ukrainian Dumplings')
+        tag1 = Tag.objects.create(user=self.user, name='vegan')
+        tag2 = Tag.objects.create(user=self.user, name='vegetarian')
+        r1.tags.add(tag1)
+        r2.tags.add(tag2)
+        r3=create_recipe(user=self.user, title='Tomahawk steak')
+
+        params = {'tags':f'{tag1.id},{tag2.id}'}
+        res = self.client.get(RECIPES_URL, params)
+
+        s1, s2, s3 = RecipeSerializer(r1), RecipeSerializer(r2), RecipeSerializer(r3)
+        self.assertIn(s1.data, res.data)
+        self.assertIn(s2.data, res.data)
+        self.assertNotIn(s3.data, res.data)
+
+    def test_filter_by_ingredients(self):
+        """Tests filtering recipiec by ingredients"""
+        r1 = create_recipe(user=self.user, title='Shrimp curry')
+        r2 = create_recipe(user=self.user, title='Borsch')
+        ing1 = Ingredient.objects.create(user=self.user, name='Shrimp')
+        ing2 = Ingredient.objects.create(user=self.user, name='Potatoe')
+        r1.ingredients.add(ing1)
+        r2.ingredients.add(ing2)
+        r3 = create_recipe(user=self.user, title='Lentil Soup')
+
+        params = {'ingredients': f'{ing1.id}, {ing2.id}'}
+        res = self.client.get(RECIPES_URL, params)
+
+        s1, s2, s3 = RecipeSerializer(r1), RecipeSerializer(r2), RecipeSerializer(r3)
+
+        self.assertIn(s1.data, res.data)
+        self.assertIn(s2.data, res.data)
+        self.assertNotIn(s3.data, res.data)
+
+
 
 class ImageUploadTest(TestCase):
     """Tests for the image upload API."""
@@ -390,10 +428,10 @@ class ImageUploadTest(TestCase):
         self.recipe.image.delete()
 
     def test_upload_image(self):
-        """Test upload an image to a recipe"""
+        """Test uploading an image to a recipe."""
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as image_file:
-            img = Image.new('RGB', (10,10))
+            img = Image.new('RGB', (10, 10))
             img.save(image_file, format='JPEG')
             image_file.seek(0)
             payload = {'image': image_file}

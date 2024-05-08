@@ -1,5 +1,6 @@
 .git
 .gitignore
+.env
 
 # Docker
 .docker
@@ -9,6 +10,6 @@ app/__pycache__/
 app/*/__pycache__/
 app/*/*/__pycache__/
 app/*/*/*/__pycache__/
-.env/
+.env.sample/
 .venv/
 venv/

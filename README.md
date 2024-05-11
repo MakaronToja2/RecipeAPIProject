@@ -1,1 +1,65 @@
 "RecipeAPI"
+An advanced API that allows users to upload and retrieve recipes to the server through HTTP requests or swagger UI.
+
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+
+## Prerequisites
+- Docker
+- Python 3.8 or higher
+- Linux operating system
+
+## Installation
+1. Clone the repository:
+
+git clone https://github.com/MakaronToja2/RecipeAPIProject
+
+cd RecipeAPIProject
+
+docker-compose build
+
+docker-compose up
+
+## Usage
+
+To use RecipeAPIProject we can use HTTPS requests, but go to 127.0.0.1:8000/api/docs. 
+There you can find all the endpoints available.
+
+## Examples
+Open Terminal and type for example:
+curl -X POST http://127.0.0.1:8000/api/user/create/ \
+     -H "Content-Type: application/json" \
+     -d '{"email": "user@example.com", "password": "password123", "name": "user"}'
+
+Now to retrieve a token for authorization:
+curl -X POST http://127.0.0.1:8000/api/user/token/ \
+     -H "Content-Type: application/json" \
+     -d '{"email": "user@example.com", "password": "password123", "name": "user"}'
+
+Now to authorize we get token from previous command and POST new recipe with it:
+curl -X POST http://127.0.0.1:80/api/recipe/recipes/ \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Token YOUR_AUTHENTICATION_TOKEN" \
+     -d '{
+           "title": "string",
+           "time_minutes": 2147483647,
+           "price": "-4",
+           "link": "string",
+           "tags": [
+             {
+               "name": "string"
+             }
+           ],
+           "ingredients": [
+             {
+               "name": "string"
+             }
+           ],
+           "description": "string"
+         }'
+
+And now to get all the recipies from this specific user:
+curl -X GET http://127.0.0.1:80/api/recipe/recipes/ \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Token YOUR_AUTHENTICATION_TOKEN" 

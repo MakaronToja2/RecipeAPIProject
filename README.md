@@ -4,6 +4,8 @@ An advanced API that allows users to upload and retrieve recipes to the server t
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
+- [Examples](#examples)
+- [Deployment](#deployment)
 
 ## Prerequisites
 - Docker

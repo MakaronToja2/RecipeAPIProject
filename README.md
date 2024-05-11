@@ -70,9 +70,13 @@ curl -X POST http://127.0.0.1:80/api/recipe/recipes/ \
          }'
 ```
 
-And now to get all the recipies from this specific user:
+And now to get all the recipes from this specific user:
 ```shell
 curl -X GET http://127.0.0.1:80/api/recipe/recipes/ \
      -H "Content-Type: application/json" \
      -H "Authorization: Token YOUR_AUTHENTICATION_TOKEN"
 ```
+#Deployment
+The code is ready for deployment for AWS it needs to be configured.</br>
+Due to the costs of AWS, I was not able to deploy the server.</br>
+<h2>I hope you like the project and have fun with it! Cy@</h2>

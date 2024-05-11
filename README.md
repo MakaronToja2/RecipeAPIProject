@@ -1,4 +1,4 @@
-"RecipeAPI"
+"RecipeAPI"</br>
 An advanced API that allows users to upload and retrieve recipes to the server through HTTP requests or swagger UI.
 
 ## Table of Contents
@@ -12,15 +12,21 @@ An advanced API that allows users to upload and retrieve recipes to the server t
 
 ## Installation
 1. Clone the repository:
-
+```
 git clone https://github.com/MakaronToja2/RecipeAPIProject
-
+```
+2. Change the working directory
+```
 cd RecipeAPIProject
-
+```
+3. Build a new container for the project
+```
 docker-compose build
-
+```
+4. Start a container with a server
+```
 docker-compose up
-
+```
 ## Usage
 
 To use RecipeAPIProject we can use HTTPS requests, but go to 127.0.0.1:8000/api/docs. 

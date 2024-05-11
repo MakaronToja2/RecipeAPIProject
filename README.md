@@ -1,4 +1,4 @@
-"RecipeAPI"</br>
+<h1>"RecipeAPI"</h1></br>
 An advanced API that allows users to upload and retrieve recipes to the server through HTTP requests or swagger UI.
 
 ## Table of Contents
